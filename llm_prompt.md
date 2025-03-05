@@ -25,3 +25,5 @@ When you click on the letter in the menu the browser should center the virtial s
 The innerHTML of `a-to-z-ul` is a UL list not a list of text one per line.
 
 Update the HTML examples to use innerHTML UL elements
+
+The back to menu link should scroll the menu into view.

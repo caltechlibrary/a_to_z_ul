@@ -12,7 +12,7 @@ contributor:
 
 
 repository_code: https://github.com/caltechlibrary/a_to_z_ul
-version: 0.0.1
+version: 0.0.2
 license_url: https://caltechlibrary.github.io/a_to_z_ul/LICENSE
 
 programming_language:
@@ -27,15 +27,15 @@ keywords:
   - CSS
   - user interface
 
-date_released: 2025-03-04
+date_released: 2025-03-05
 ---
 
 About this software
 ===================
 
-## a_to_z_ul 0.0.1
+## a_to_z_ul 0.0.2
 
-Proof of concept of a wrapping web component for UL lists that provides an A to Z style index.
+Proof of concept of a wrapping web component for UL lists that provides an A to Z style index. Fixed but where list wasn&#x27;t scrolling into view.
 
 ### Authors
 

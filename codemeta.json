@@ -18,8 +18,8 @@
     }
   ],
   "dateCreated": "2025-03-04",
-  "dateModified": "2025-03-04",
-  "datePublished": "2025-03-04",
+  "dateModified": "2025-03-05",
+  "datePublished": "2025-03-05",
   "description": "A to Z UL is a Web Component that can wrap a UL list and provide an A to Z index for it based on the content in the UL list.",
   "funder": [
     {
@@ -42,8 +42,8 @@
     "CSS"
   ],
   "runtimePlatform": "- HTML5 compatible web browser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "developmentStatus": "concept",
   "issueTracker": "https://github.com/caltechlibrary/a_to_z_ul/issues",
-  "releaseNotes": "Proof of concept of a wrapping web component for UL lists that provides an A to Z style index."
+  "releaseNotes": "Proof of concept of a wrapping web component for UL lists that provides an A to Z style index. Fixed but where list wasn't scrolling into view."
 }
