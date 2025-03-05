@@ -33,16 +33,19 @@ class AToZUL extends HTMLElement {
         }
       </style>
       <menu id="menu"></menu>
-      <ul id="list"></ul>
+      <div id="list-container"></div>
       ${this.hasAttribute('long') ? '<a class="back-to-menu" href="#menu">Back to Menu</a>' : ''}
     `;
 
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    const list = this.shadowRoot.querySelector('#list');
+    const listContainer = this.shadowRoot.querySelector('#list-container');
     const menu = this.shadowRoot.querySelector('#menu');
 
-    const items = this.innerHTML.trim().split('\n').map(item => item.trim()).filter(item => item);
+    const ulElement = this.querySelector('ul');
+    if (!ulElement) return;
+
+    const items = Array.from(ulElement.querySelectorAll('li')).map(li => li.textContent.trim());
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const sections = {};
 
@@ -60,25 +63,41 @@ class AToZUL extends HTMLElement {
         const menuLink = document.createElement('a');
         menuLink.href = `#section-${letter}`;
         menuLink.textContent = letter;
+        menuLink.addEventListener('click', (event) => {
+          event.preventDefault();
+          const targetSection = this.shadowRoot.querySelector(`#section-${letter}`);
+          this.scrollToSection(targetSection);
+        });
         menuItem.appendChild(menuLink);
         menu.appendChild(menuItem);
 
-        const section = document.createElement('li');
+        const section = document.createElement('ul');
         section.classList.add('letter-section');
-        const sectionHeading = document.createElement('a');
-        sectionHeading.href = `#menu`;
-        sectionHeading.textContent = letter;
+        section.id = `section-${letter}`;
+        const sectionHeading = document.createElement('li');
+        const sectionHeadingLink = document.createElement('a');
+        sectionHeadingLink.href = `#menu`;
+        sectionHeadingLink.textContent = letter;
+        sectionHeading.appendChild(sectionHeadingLink);
         section.appendChild(sectionHeading);
 
-        const sectionList = document.createElement('ul');
         sections[letter].forEach(item => {
           const listItem = document.createElement('li');
           listItem.textContent = item;
-          sectionList.appendChild(listItem);
+          section.appendChild(listItem);
         });
-        section.appendChild(sectionList);
-        list.appendChild(section);
+        listContainer.appendChild(section);
       }
+    });
+  }
+
+  scrollToSection(section) {
+    const yOffset = -100; // Adjust this value to control the offset from the top
+    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({
+      top: y,
+      behavior: 'smooth'
     });
   }
 }

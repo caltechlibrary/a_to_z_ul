@@ -15,3 +15,13 @@ The `a-to-z-ul` menu's items should not contain bullets. The Letter section head
  The `a-to-z-ul` web component may exist multiple times on a page. 
 
  The `a-to-z-ul` web component should be implemented as an ES6 module.
+
+--
+
+NOTE: The following is prompts added after the initial prompt generated code.
+
+When you click on the letter in the menu the browser should center the virtial scroll so that section of the list is visible.
+
+The innerHTML of `a-to-z-ul` is a UL list not a list of text one per line.
+
+Update the HTML examples to use innerHTML UL elements
