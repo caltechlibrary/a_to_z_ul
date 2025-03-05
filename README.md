@@ -17,10 +17,9 @@ Proof of concept of a wrapping web component for UL lists that provides an A to 
 
 - Doiel, R. S.
 
+Uses: 
 
-
-
-Uses: - HTML5 compatible web browser
+- HTML5 compatible web browser
 
 ## Related resources
 
@@ -28,6 +27,6 @@ Uses: - HTML5 compatible web browser
 
 - [Getting Help, Reporting bugs](https://github.com/caltechlibrary/a_to_z_ul/issues)
 - [LICENSE](https://caltechlibrary.github.io/a_to_z_ul/LICENSE)
-- [Installation](INSTALL.md)
+- [Demos](user_manual.md)
 - [About](about.md)
 

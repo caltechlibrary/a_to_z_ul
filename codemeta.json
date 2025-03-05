@@ -10,6 +10,13 @@
       "familyName": "Doiel"
     }
   ],
+  "contributor": [
+    {
+      "id": "https://github.com/mistralai/mistral-src",
+      "type": "Organization",
+      "name": "Mistral AI"
+    }
+  ],
   "dateCreated": "2025-03-04",
   "dateModified": "2025-03-04",
   "datePublished": "2025-03-04",

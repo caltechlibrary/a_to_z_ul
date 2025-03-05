@@ -1,82 +1,88 @@
 class AToZUL extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-    }
-  
-    connectedCallback() {
-      this.render();
-    }
-  
-    render() {
-      const longCount = parseInt(this.getAttribute('long-count')) || 50;
-      const ul = this.querySelector('ul');
-      if (!ul) return;
-  
-      const items = Array.from(ul.children);
-      const groupedItems = this.groupItemsByAlphabet(items);
-  
-      const template = document.createElement('template');
-      template.innerHTML = `
-        <style>
-          menu {
-            list-style-type: none;
-            padding: 0;
-          }
-          menu li {
-            display: inline;
-            margin-right: 10px;
-          }
-          .back-to-menu {
-            display: ${items.length > longCount ? 'block' : 'none'};
-            margin-top: 20px;
-          }
-        </style>
-        <menu id="menu"></menu>
-        <div id="list-container"></div>
-        <a class="back-to-menu" href="#menu">Back to Menu</a>
-      `;
-  
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-  
-      const menu = this.shadowRoot.querySelector('menu');
-      const listContainer = this.shadowRoot.querySelector('#list-container');
-  
-      for (const letter in groupedItems) {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    const template = document.createElement('template');
+    template.innerHTML = `
+      <style>
+        menu {
+          list-style-type: none;
+          padding: 0;
+        }
+        menu li {
+          display: inline;
+          margin-right: 10px;
+        }
+        .letter-section {
+          list-style-type: none;
+        }
+        .letter-section a {
+          text-decoration: none;
+          font-weight: bold;
+        }
+        .back-to-menu {
+          display: block;
+          margin-top: 20px;
+        }
+      </style>
+      <menu id="menu"></menu>
+      <ul id="list"></ul>
+      ${this.hasAttribute('long') ? '<a class="back-to-menu" href="#menu">Back to Menu</a>' : ''}
+    `;
+
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+    const list = this.shadowRoot.querySelector('#list');
+    const menu = this.shadowRoot.querySelector('#menu');
+
+    const items = this.innerHTML.trim().split('\n').map(item => item.trim()).filter(item => item);
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const sections = {};
+
+    items.forEach(item => {
+      const firstLetter = item[0].toUpperCase();
+      if (!sections[firstLetter]) {
+        sections[firstLetter] = [];
+      }
+      sections[firstLetter].push(item);
+    });
+
+    alphabet.split('').forEach(letter => {
+      if (sections[letter]) {
         const menuItem = document.createElement('li');
         const menuLink = document.createElement('a');
         menuLink.href = `#section-${letter}`;
         menuLink.textContent = letter;
         menuItem.appendChild(menuLink);
         menu.appendChild(menuItem);
-  
-        const section = document.createElement('section');
-        section.id = `section-${letter}`;
-        const sectionTitle = document.createElement('h3');
-        sectionTitle.innerHTML = `<a href="#menu">${letter}</a>`;
-        section.appendChild(sectionTitle);
-  
+
+        const section = document.createElement('li');
+        section.classList.add('letter-section');
+        const sectionHeading = document.createElement('a');
+        sectionHeading.href = `#menu`;
+        sectionHeading.textContent = letter;
+        section.appendChild(sectionHeading);
+
         const sectionList = document.createElement('ul');
-        groupedItems[letter].forEach(item => sectionList.appendChild(item.cloneNode(true)));
+        sections[letter].forEach(item => {
+          const listItem = document.createElement('li');
+          listItem.textContent = item;
+          sectionList.appendChild(listItem);
+        });
         section.appendChild(sectionList);
-        listContainer.appendChild(section);
+        list.appendChild(section);
       }
-    }
-  
-    groupItemsByAlphabet(items) {
-      const groups = {};
-      items.forEach(item => {
-        const firstLetter = item.textContent.trim()[0].toUpperCase();
-        if (!groups[firstLetter]) {
-          groups[firstLetter] = [];
-        }
-        groups[firstLetter].push(item);
-      });
-      return groups;
-    }
+    });
   }
-  
-  customElements.define('a-to-z-ul', AToZUL);
-  
-  export { AToZUL };
-  
+}
+
+customElements.define('a-to-z-ul', AToZUL);
+
+export { AToZUL };

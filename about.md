@@ -4,8 +4,11 @@ abstract: "A to Z UL is a Web Component that can wrap a UL list and provide an A
 authors:
   - family_name: Doiel
     given_name: R. S.
-    orcid: https://orcid.org/0000-0003-0900-6903
+    id: https://orcid.org/0000-0003-0900-6903
 
+contributor:
+  - name: Mistral AI
+    id: https://github.com/mistralai/mistral-src
 
 
 repository_code: https://github.com/caltechlibrary/a_to_z_ul
@@ -36,9 +39,11 @@ Proof of concept of a wrapping web component for UL lists that provides an A to 
 
 ### Authors
 
-- R. S. Doiel, ORCID: <https://orcid.org/0000-0003-0900-6903>
+- R. S. Doiel, <https://orcid.org/0000-0003-0900-6903>
 
+### Contributors
 
+- Mistral AI, <https://github.com/mistralai/mistral-src>
 
 
 
